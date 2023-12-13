@@ -1,0 +1,6 @@
+export enum ACTIONS {
+  SEARCH,
+  SEARCH_SUCCESS,
+  SEARCH_ERROR,
+  REMOVE_HISTORY,
+}

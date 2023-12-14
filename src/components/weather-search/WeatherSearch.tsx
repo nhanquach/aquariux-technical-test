@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 import {
   WeatherContext,
   WeatherDispatchContext,
 } from "../../context/WeatherContext";
 import { ACTIONS } from "../../reducers/weather-reducer/actions";
+import { IStoreState } from "../../reducers/weather-reducer/interface";
 
-const WeatherSearch = () => {
+const WeatherSearch: React.FC<{}> = () => {
   const [city, setCity] = useState("Ho Chi Minh");
   const [country, setCountry] = useState("VN");
 
-  const state = useContext(WeatherContext);
+  const state = useContext<IStoreState>(WeatherContext);
   const dispatch = useContext(WeatherDispatchContext);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -18,8 +20,8 @@ const WeatherSearch = () => {
     dispatch({
       type: ACTIONS.SEARCH,
       payload: {
-        city: city.toLowerCase(),
-        country: country.toLowerCase(),
+        city,
+        country,
         dispatch,
       },
     });
@@ -37,6 +39,13 @@ const WeatherSearch = () => {
   const handleCountryChange = (e: React.FormEvent<HTMLInputElement>) => {
     setCountry(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (state) {
+      setCity(state.city);
+      setCountry(state.country);
+    }
+  }, [state]);
 
   return (
     <form

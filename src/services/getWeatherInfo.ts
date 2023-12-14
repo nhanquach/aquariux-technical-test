@@ -2,11 +2,12 @@ import { convertToWeatherInfo } from "../converters/convertToWeatherInfo";
 import { ACTIONS } from "../reducers/weather-reducer/actions";
 import {
   IOpenWeatherResponse,
+  IStoreAction,
   IWeatherInfo,
 } from "../reducers/weather-reducer/interface";
 
 interface IGetWeatherInfo {
-  dispatch: any;
+  dispatch: React.Dispatch<IStoreAction>;
   city: string;
   country: string;
 }
@@ -17,7 +18,7 @@ const onGetWeatherInfoSuccess = ({
   dispatch,
   weatherInfoResponse,
 }: {
-  dispatch: any;
+  dispatch: React.Dispatch<IStoreAction>;
   weatherInfoResponse: IWeatherInfo;
 }) => {
   dispatch({
@@ -30,7 +31,7 @@ const onGetWeatherInfoError = ({
   dispatch,
   error,
 }: {
-  dispatch: any;
+  dispatch: React.Dispatch<IStoreAction>;
   error?: string;
 }) => {
   dispatch({ type: ACTIONS.SEARCH_ERROR, payload: error });
@@ -71,7 +72,7 @@ const searchGeoCoding = async ({
   country: string;
 }): Promise<{ lon: number; lat: number }> => {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&limit=1&appid=${appId}`,
+    `http://api.openweathermap.org/geo/1.0/direct?q=${city?.toLowerCase()},${country?.toLowerCase()}&limit=1&appid=${appId}`,
   );
 
   const [location] = await response.json();

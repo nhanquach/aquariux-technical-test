@@ -32,7 +32,6 @@ const WeatherReducer = (
       };
     }
     case ACTIONS.SEARCH_ERROR: {
-      console.log(payload);
       return {
         ...state,
         isLoading: false,

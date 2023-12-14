@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+
 import { WeatherContext } from "../../context/WeatherContext";
-import HistoryItem from "./HistoryItem";
 import { IWeatherInfo } from "../../reducers/weather-reducer/interface";
 
-const WeatherSearchHistory = () => {
+import HistoryItem from "./history-item";
+
+const WeatherSearchHistory: React.FC<{}> = () => {
   const state = useContext(WeatherContext);
 
   const { history } = state;

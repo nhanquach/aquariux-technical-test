@@ -3,7 +3,9 @@ import React, { useContext } from "react";
 import { WeatherContext } from "../../context/WeatherContext";
 import { IStoreState } from "../../reducers/weather-reducer/interface";
 
-const WeatherResult = () => {
+import { calculateCurrentTimeWithTimeZone } from "./service";
+
+const WeatherResult: React.FC<{}> = () => {
   const state = useContext<IStoreState>(WeatherContext);
 
   if (!state.weather) {
@@ -29,23 +31,6 @@ const WeatherResult = () => {
     humidity,
   } = state.weather;
 
-  const calculateWithTimeZone = () => {
-    const nowInLocalTime = new Date().toUTCString() + 1000 * timezone;
-    const localTime = new Date(nowInLocalTime).toLocaleDateString("en-CA", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-
-    return localTime
-      .replace(/[,.]/g, "")
-      .replace("a.m", "AM")
-      .replace("p.m", "PM");
-  };
-
   return (
     <div className="weather-result">
       <div className="location">
@@ -70,7 +55,9 @@ const WeatherResult = () => {
           </tr>
           <tr>
             <td className="label time">Time:</td>
-            <td className="time-data">{calculateWithTimeZone()}</td>
+            <td className="time-data">
+              {calculateCurrentTimeWithTimeZone(timezone)}
+            </td>
           </tr>
         </tbody>
       </table>

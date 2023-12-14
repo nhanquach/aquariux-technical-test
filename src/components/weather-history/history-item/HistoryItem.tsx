@@ -1,9 +1,11 @@
 import React, { useContext, useMemo } from "react";
-import { WeatherDispatchContext } from "../../context/WeatherContext";
+
+import { WeatherDispatchContext } from "../../../context/WeatherContext";
+import { ACTIONS } from "../../../reducers/weather-reducer/actions";
+import { IWeatherInfo } from "../../../reducers/weather-reducer/interface";
+
 import SearchButton from "./SearchButton";
 import RemoveButton from "./RemoveButton";
-import { ACTIONS } from "../../reducers/weather-reducer/actions";
-import { IWeatherInfo } from "../../reducers/weather-reducer/interface";
 
 interface IHistoryItemProps {
   index: number;
@@ -28,7 +30,6 @@ const HistoryItem: React.FC<IHistoryItemProps> = ({ index, item }) => {
     dispatch({
       type: ACTIONS.REMOVE_HISTORY,
       payload: {
-        id: item.id,
         timeStamp: item.timeStamp,
       },
     });

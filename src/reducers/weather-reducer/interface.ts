@@ -22,14 +22,14 @@ export interface IStoreState {
   error: null | string;
   city: string;
   country: string;
-  weather?: IWeatherInfo;
+  weather: null | IWeatherInfo;
   history: IWeatherInfo[];
 }
 
 export interface IStoreAction {
   type: ACTIONS;
   payload: any;
-  dispatch: any;
+  dispatch?: React.Dispatch<IStoreAction>;
 }
 
 export interface IOpenWeatherResponse {
